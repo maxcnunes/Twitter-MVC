@@ -1,0 +1,55 @@
+﻿
+/*
+-------Twitter*/
+#Twitter
+{
+    border: 1px solid #8AA2AA;
+    padding:1px;
+}
+.titleTwitter
+{
+    background: #8AA2AA;
+    padding: 5px 10px;
+}
+.titleTwitter a
+{
+    font-size:8pt;
+    color:#fff;
+}
+.titleTwitter img
+{
+    
+    margin-right: 5px;
+    vertical-align:middle;
+}
+.userTwitter img
+{
+    width: 30px;
+}
+#Twitter ul
+{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+#Twitter ul li
+{
+    font-size: 8pt;
+    border-bottom: 1px solid #ccc;
+    padding:10px 5px;
+    text-align:justify;
+}
+#Twitter ul li a
+{
+    font-weight:bold;
+}
+#Twitter ul li span
+{
+    display:block;
+    text-align:left;
+    font-size:7pt;
+}
+#Twitter ul li:hover
+{
+    background:#CCEEF9;
+}

@@ -1,0 +1,7 @@
+c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\bin\MvcTwitter.dll
+c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\bin\MvcTwitter.pdb
+c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\bin\EntityFramework.dll
+c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\bin\EntityFramework.xml
+c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\obj\Debug\ResolveAssemblyReference.cache
+c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\obj\Debug\MvcTwitter.dll
+c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\obj\Debug\MvcTwitter.pdb

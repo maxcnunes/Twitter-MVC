@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Lista de Mensagens do Twitter";
+}
+<h2>
+    Index</h2>
+<div id="Twitter">
+    <div class="titleTwitter">
+        @{  
+            var userTwitter = ((List<MvcTwitter.Models.Twitter>)ViewBag.Twitter).FirstOrDefault();
+            <a href="@userTwitter.AuthorUri" target="_blank" class="userTwiiter">
+                <img src="@userTwitter.Link" alt="Twitter Logo" />@userTwitter.AuthorName</a>
+        }
+    </div>
+    <ul>
+        @foreach (var item in ViewBag.Twitter)
+        {
+            <li>
+                @Html.Raw(item.Content)
+                <span>@item.Updated</span> </li>
+        }
+    </ul>
+    <div class="titleTwitter">
+        <a href="">
+            <img alt="Twitter" alt="Twitter" src="@Url.Content("~/Content/Image/link_twitter.png")">Twitter</a>
+    </div>
+</div>
