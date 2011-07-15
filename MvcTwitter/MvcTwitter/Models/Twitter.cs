@@ -13,6 +13,7 @@ namespace MvcTwitter.Models
     {
 
         #region Variables
+        private const string _URL_Twitter_Search = @"http://search.twitter.com/search.atom?";
         private string _AllTheseWords;
         private string _ThisExactPhrase;
         private string _AnyTheseWords;
@@ -62,7 +63,7 @@ namespace MvcTwitter.Models
         public List<Twitter> GetTwitter(string search)
         {
             //Faz a pesquisa no twitter de acordo com o filtro passado
-            var request = WebRequest.Create("http://search.twitter.com/search.atom?" + search) as HttpWebRequest;
+            var request = WebRequest.Create(_URL_Twitter_Search + search) as HttpWebRequest;
             var twitterViewData = new List<Twitter>();
 
             if (request != null)

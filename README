@@ -1,1 +1,4 @@
---Twitter MVC is a test project!
+-- Twitter MVC --
+É projeto simples e prático, que implementa alguns filtros de consulta no twitter, como autor e palavras chaves.
+A consulta retorna um XML, em seguida formata os valores correspondentes e forma uma lista de objetos instanciados da classe Twitter.
+Facilitando a manipulaçao destes dados posteriormente.
