@@ -14,14 +14,12 @@ namespace MvcTwitter.Controllers
         public ActionResult Index()
         {
             //Passa como parametro o valor da pesquisa
-            //Neste exemplo:
-            //from -> Filtra as mensagens por usuário
-            //rpp  -> Retorna apenas os últimos 15 resultados
-            //ViewBag.Twitter = Models.Twitter.GetTwitter("from=twitterapi&rpp=15");
             Models.TwitterSearch tw = new Models.TwitterSearch();
             var x = tw.AllTheseWords;
             tw.AllTheseWords = "nome";
             x = tw.AllTheseWords;
+
+            ViewBag.Twitter = tw.GetTwitter();
             return View();
         }
 

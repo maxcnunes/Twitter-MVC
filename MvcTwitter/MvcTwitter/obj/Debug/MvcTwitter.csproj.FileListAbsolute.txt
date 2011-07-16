@@ -5,3 +5,10 @@ c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\bin\Ent
 c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\obj\Debug\ResolveAssemblyReference.cache
 c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\obj\Debug\MvcTwitter.dll
 c:\users\max\documents\visual studio 2010\Projects\MvcTwitter\MvcTwitter\obj\Debug\MvcTwitter.pdb
+C:\Users\Max\RepositorioGIT\Twitter-MVC\MvcTwitter\MvcTwitter\bin\MvcTwitter.dll
+C:\Users\Max\RepositorioGIT\Twitter-MVC\MvcTwitter\MvcTwitter\bin\MvcTwitter.pdb
+C:\Users\Max\RepositorioGIT\Twitter-MVC\MvcTwitter\MvcTwitter\bin\EntityFramework.dll
+C:\Users\Max\RepositorioGIT\Twitter-MVC\MvcTwitter\MvcTwitter\bin\EntityFramework.xml
+C:\Users\Max\RepositorioGIT\Twitter-MVC\MvcTwitter\MvcTwitter\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Max\RepositorioGIT\Twitter-MVC\MvcTwitter\MvcTwitter\obj\Debug\MvcTwitter.dll
+C:\Users\Max\RepositorioGIT\Twitter-MVC\MvcTwitter\MvcTwitter\obj\Debug\MvcTwitter.pdb

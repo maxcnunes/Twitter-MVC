@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Net;
 using System.Globalization;
 using System.IO;
+using System.Web.Script.Serialization;
 
 namespace MvcTwitter.Models
 {
@@ -13,57 +14,60 @@ namespace MvcTwitter.Models
     {
 
         #region Variables
-        private const string _URL_Twitter_Search = @"http://search.twitter.com/search.atom?";
-        private string _AllTheseWords;
-        private string _ThisExactPhrase;
-        private string _AnyTheseWords;
-        private string _NoneTheseWords;
-        private string _ThisHastag;
-        private string _WrittenIn;
-        private string _FromThisPerson;
-        private string _ToThisPerson;
-        private string _ReferencingThisPerson;
-        private string _NearThisPlace;
-        private string _WithinThisDistance;
-        private string _KindDistance;
-        private string _SinceThisDate;
-        private string _UntilThisDate;
-        private string _WithPositiveAttitude;
-        private string _WithNegativeAttitude;
-        private string _AskingQuestion;
-        private string _ContainingLinks;
-        private string _IncludeRetweets;
-        private string _ResultPerPage;
-        #endregion
+        public const string URL_Twitter_Search = @"http://search.twitter.com/search.atom?";
+        public string AllTheseWords;
+        public string ThisExactPhrase;
+        public string AnyTheseWords;
+        public string NoneTheseWords;
+        public string ThisHastag;
+        public string WrittenIn;
+        public string FromThisPerson;
+        public string ToThisPerson;
+        public string ReferencingThisPerson;
+        public string NearThisPlace;
+        public Nullable<int> WithinThisDistance;
+        public Nullable<Unit> UnitDistance;
+        public Nullable<DateTime> SinceThisDate;
+        public Nullable<DateTime> UntilThisDate;
+        public bool WithPositiveAttitude = false;
+        public bool WithNegativeAttitude = false;
+        public bool AskingQuestion = false;
+        public bool ContainingLinks = false;
+        public bool IncludeRetweets = false;
+        public Nullable<int> ResultPerPage;
+        public enum Unit { mi, km };
 
-        #region Properties
-        public string AllTheseWords { get { return _AllTheseWords; } set { this._AllTheseWords = "ands=" + value; } }
-        public string ThisExactPhrase { get { return _ThisExactPhrase; } set { this._ThisExactPhrase = "phrase=" + value; } }
-        public string AnyTheseWords { get { return _AnyTheseWords; } set { this.AnyTheseWords = "ors=" + value; } }
-        public string NoneTheseWords { get { return _NoneTheseWords; } set { this.NoneTheseWords = "nots" + value; } }
-        public string ThisHastag { get { return _ThisHastag; } set { this.ThisHastag = "tag=" + value; } }
-        public string WrittenIn { get { return _WrittenIn; } set { this.WrittenIn = "lang=ar" + value; } }
-        public string FromThisPerson { get { return _FromThisPerson; } set { this.FromThisPerson = "from=" + value; } }
-        public string ToThisPerson { get { return _ToThisPerson; } set { this.ToThisPerson = "to=" + value; } }
-        public string ReferencingThisPerson { get { return _ReferencingThisPerson; } set { this.ReferencingThisPerson = "ref" + value; } }
-        public string NearThisPlace { get { return _NearThisPlace; } set { this.NearThisPlace = "near" + value; } }
-        public string WithinThisDistance { get { return _WithinThisDistance; } set { this.WithinThisDistance = "within" + value; } }
-        public string KindDistance { get { return _KindDistance; } set { this.KindDistance = "units=mi" + value; } }
-        public string SinceThisDate { get { return _SinceThisDate; } set { this.SinceThisDate = "since=2011-07-13" + value; } }
-        public string UntilThisDate { get { return _UntilThisDate; } set { this.UntilThisDate = "until=2011-07-14" + value; } }
-        public string WithPositiveAttitude { get { return _WithPositiveAttitude; } set { this.WithPositiveAttitude = "tude[]=%3A)" + value; } }
-        public string WithNegativeAttitude { get { return _WithNegativeAttitude; } set { this.WithNegativeAttitude = "tude[]=%3A(" + value; } }
-        public string AskingQuestion { get { return _AskingQuestion; } set { this.AskingQuestion = "tude[]=%3F" + value; } }
-        public string ContainingLinks { get { return _ContainingLinks; } set { this.ContainingLinks = "filter[]=links" + value; } }
-        public string IncludeRetweets { get { return _IncludeRetweets; } set { this.IncludeRetweets = "include[]=retweets" + value; } }
-        public string ResultPerPage { get { return _ResultPerPage; } set { this.ResultPerPage = "rpp=" + value; } }
         #endregion
 
         #region Methods
-        public List<Twitter> GetTwitter(string search)
+        public List<Twitter> GetTwitter()
         {
+
+            string SearchFilter = string.Format(@"q=&ands={0}&phrase={1}&ors={2}&nots={3}&tag={4}&lang={5}&from={6}&to={7}&ref={8}&near={9}&within={10}&units={11}&since={12}&until={13}{14}{15}{16}{17}{18}&rpp={19}",
+                                            AllTheseWords,
+                                            ThisExactPhrase,
+                                            AnyTheseWords,
+                                            NoneTheseWords,
+                                            ThisHastag,
+                                            WrittenIn ?? "all",
+                                            FromThisPerson,
+                                            ToThisPerson,
+                                            ReferencingThisPerson,
+                                            NearThisPlace,
+                                            WithinThisDistance ?? 15,
+                                            (UnitDistance != null ? Enum.GetName(typeof(Unit), UnitDistance) : Enum.GetName(typeof(Unit), Unit.mi)),
+                                            string.Format("{0:d}", SinceThisDate),
+                                            string.Format("{0:d}", UntilThisDate),
+                                            (WithPositiveAttitude ? "&tude%5B%5D=%3A%29" : null),
+                                            (WithNegativeAttitude ? "&tude%5B%5D=%3A%28" : null),
+                                            (AskingQuestion ? "&tude%5B%5D=%3F" : null),
+                                            (ContainingLinks ? "&filter%5B%5D=links" : null),
+                                            (IncludeRetweets ? "&include%5B%5D=retweets" : null),
+                                            ResultPerPage ?? 15
+                                        );
+
             //Faz a pesquisa no twitter de acordo com o filtro passado
-            var request = WebRequest.Create(_URL_Twitter_Search + search) as HttpWebRequest;
+            var request = WebRequest.Create(URL_Twitter_Search + SearchFilter) as HttpWebRequest;
             var twitterViewData = new List<Twitter>();
 
             if (request != null)
@@ -92,8 +96,10 @@ namespace MvcTwitter.Models
                 }
             }
 
+
             return twitterViewData;
         }
+
         #endregion
 
         #region Helpers
@@ -104,15 +110,38 @@ namespace MvcTwitter.Models
 
             value = value.Replace("T", " ").Replace("Z", string.Empty);
 
-            DateTime _Date;
-            if (!DateTime.TryParse(value, out _Date))
+            DateTime Date;
+            if (!DateTime.TryParse(value, out Date))
                 throw new ArgumentException("Erro ao converter.");
 
             // Formata a data para o formato de tempo brasileiro.
-            return _Date.ToString(ci);
+            return Date.ToString(ci);
+        }
+
+
+        //Em implementação...
+        public static string GetWeatherByLocation()
+        {
+            //string formattedUri = String.Format(CultureInfo.InvariantCulture, "http://search.twitter.com/search.json?q=twitter", lat, lng);
+            HttpWebRequest webRequest = GetWebRequest("http://search.twitter.com/search.json?q=twitter");
+            HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
+            string jsonResponse = string.Empty;
+            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+            {
+                jsonResponse = sr.ReadToEnd();
+            }
+            return jsonResponse;
+        }
+        private static HttpWebRequest GetWebRequest(string formattedUri)
+        {
+            // Create the request’s URI.
+            Uri serviceUri = new Uri(formattedUri, UriKind.Absolute);
+
+            // Return the HttpWebRequest.
+            return (HttpWebRequest)System.Net.WebRequest.Create(serviceUri);
         }
         #endregion
-        
+
     }
 
     public class Twitter
@@ -122,5 +151,21 @@ namespace MvcTwitter.Models
         public string Content { get; set; }
         public string Updated { get; set; }
         public string Link { get; set; }
+    }
+
+    public class TwitterJson
+    {
+
+        public string stringmax_id { get; set; }
+        public string since_id { get; set; }
+        public string refresh_url { get; set; }
+        public string next_page { get; set; }
+        public string results_per_page { get; set; }
+        public string page { get; set; }
+        public string completed_in { get; set; }
+        public string warning { get; set; }
+        public string stringsince_id_str { get; set; }
+        public string stringmax_id_str { get; set; }
+        public string stringquery { get; set; }
     }
 }
